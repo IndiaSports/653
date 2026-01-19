@@ -1093,21 +1093,14 @@
 </html>
 
 <script>
-  (function () {
-    const lockPoint = window.innerHeight * 1.5; // 150%
-    let lastAllowedScroll = 0;
+  const lockPoint = window.innerHeight * 1.5;
 
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-
-      // Agar user niche scroll kar raha hai aur 150% cross ho gaya
-      if (currentScroll > lockPoint) {
-        window.scrollTo(0, lockPoint);
-      } else {
-        lastAllowedScroll = currentScroll;
-      }
-    });
-  })();
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > lockPoint) {
+      window.scrollTo(0, lockPoint);
+    }
+  });
 </script>
+
 
 
