@@ -1181,5 +1181,23 @@ setInterval(cycleMiniBtn,10000);
 </body>
 </html>
 
+<script>
+(function(){
+  const LIMIT = 0.3; // 30%
+
+  function lockScroll(){
+    const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) * LIMIT;
+
+    if(window.scrollY > maxScroll){
+      window.scrollTo(0, maxScroll);
+    }
+  }
+
+  // desktop / mobile
+  window.addEventListener("scroll", lockScroll, {passive:false});
+})();
+</script>
+
+
 
 
