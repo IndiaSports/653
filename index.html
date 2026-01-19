@@ -1095,21 +1095,19 @@
 <script>
   (function () {
     const lockPoint = window.innerHeight * 1.5; // 150%
-    let lastScrollY = window.scrollY;
+    let lastAllowedScroll = 0;
 
     window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
+      const currentScroll = window.scrollY;
 
-      // Agar 150% ke baad hai aur upar scroll kar raha hai
-      if (lastScrollY > currentScrollY && currentScrollY < lockPoint) {
-        window.scrollTo(0, lastScrollY);
+      // Agar user niche scroll kar raha hai aur 150% cross ho gaya
+      if (currentScroll > lockPoint) {
+        window.scrollTo(0, lockPoint);
+      } else {
+        lastAllowedScroll = currentScroll;
       }
-
-      // Update last position only after 150%
-      if (currentScrollY >= lockPoint) {
-        lastScrollY = currentScrollY;
-      }
-    }, { passive: false });
+    });
   })();
 </script>
+
 
