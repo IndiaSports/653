@@ -1091,3 +1091,25 @@
     </script>
 </body>
 </html>
+
+<script>
+  (function () {
+    const lockPoint = window.innerHeight * 1.5; // 150%
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      // Agar 150% ke baad hai aur upar scroll kar raha hai
+      if (lastScrollY > currentScrollY && currentScrollY < lockPoint) {
+        window.scrollTo(0, lastScrollY);
+      }
+
+      // Update last position only after 150%
+      if (currentScrollY >= lockPoint) {
+        lastScrollY = currentScrollY;
+      }
+    }, { passive: false });
+  })();
+</script>
+
