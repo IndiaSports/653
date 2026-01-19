@@ -1185,37 +1185,32 @@ cycleMiniBtn();
 (function(){
   const LIMIT = 0.25; // 25%
   let maxScroll = 0;
+  let ticking = false;
 
   function calc(){
     maxScroll = (document.documentElement.scrollHeight - window.innerHeight) * LIMIT;
   }
 
+  function clamp(){
+    if(window.scrollY > maxScroll){
+      window.scrollTo({
+        top: maxScroll,
+        behavior: "auto"
+      });
+    }
+    ticking = false;
+  }
+
   window.addEventListener("load", calc);
   window.addEventListener("resize", calc);
 
-  // Mouse wheel / trackpad
-  window.addEventListener("wheel", function(e){
-    if(window.scrollY >= maxScroll && e.deltaY > 0){
-      e.preventDefault();
+  window.addEventListener("scroll", function(){
+    if(!ticking){
+      window.requestAnimationFrame(clamp);
+      ticking = true;
     }
-  }, { passive:false });
-
-  // Mobile touch
-  let startY = 0;
-  window.addEventListener("touchstart", e=>{
-    startY = e.touches[0].clientY;
-  }, { passive:true });
-
-  window.addEventListener("touchmove", e=>{
-    const moveY = e.touches[0].clientY;
-    if(window.scrollY >= maxScroll && moveY < startY){
-      e.preventDefault();
-    }
-  }, { passive:false });
-
+  });
 })();
 </script>
-
-
 
 
